@@ -51,6 +51,8 @@ browser.execute_script("arguments[0].scrollIntoView(true);", dropdown)
 dropdown.click()
 li[0].find_element_by_tag_name("a").click()
 
+#for i in range(0, len(li)):
+    #li[i].find_element_by_tag_name("a").click()
 # loop through the matches to scrape data
 wait_for_ajax(browser)
 matches = browser.find_elements_by_class_name("js-event-list-tournament-events")[1].find_elements_by_tag_name("a")
@@ -81,11 +83,22 @@ for i in range(0, len(matches)):
     isodate = d[2] + "-" + months_num[months.index(d[1])] + "-" + d[0] + "T" + d[3] + ":00:000+01:00"
     data['date'] = isodate
     #get match events (tabellino)
-    #div = browser.find_element_by_class_name("incidents-container")
-    ##############
-    #events = div.find_elements_by_class_name("cell")
-    #print("Events#"+len(events))
-    ############### prendere cell (center, right, left) e scriverci away o home
+    div = browser.find_element_by_class_name("incidents-container")
+    events = div.find_elements_by_class_name("cell--incident")
+    for i, event in enumerate(events):
+        browser.execute_script("arguments[0].scrollIntoView(true);", events[i])
+        divClass = event.get_attribute("class")
+        txt = str(event.text).replace('\n', ' ').replace(" +", "+")
+        if len(txt) == 0:
+            pass
+        elif "cell--right" in divClass:
+            data['eventAway'+str(i)] = txt
+        elif "cell--center" in divClass:
+            data['event'+str(i)] = txt
+        else:
+            data['eventHome'+str(i)] = txt
+    #scroll back to top of window
+    browser.execute_script("arguments[0].scrollIntoView(true);", browser.find_element_by_css_selector("a.h-interactive.js-event-link"))
     # click statistics
     browser.find_element_by_xpath("//*[@id='pjax-container-main']/div/div[2]/div/div/div/div[1]/div[3]/div[3]/div/div[2]/div/div/div[1]/div[3]/ul/li[2]").click()
     wait_for_ajax(browser)
@@ -103,9 +116,16 @@ for i in range(0, len(matches)):
 
     json_data = json.dumps(data)
     print(json_data)
+    f.write(json_data)
     #click X and close stats panel
     browser.find_element_by_xpath(
         "//*[@id='pjax-container-main']/div/div[2]/div/div/div/div[1]/div[3]/div[3]/div/div[2]/div/div/button").click()
+
+ul = dropdown.find_element_by_tag_name("ul")
+li = ul.find_elements_by_tag_name("li")
+dropdown.click()
+
+
 
 f.close()
 print("------ %s seconds ------" % (time.time() - start_time))
