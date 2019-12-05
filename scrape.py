@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 
 
 def wait_for_ajax(driver):
@@ -49,7 +50,7 @@ ul = dropdown.find_element_by_tag_name("ul")
 li = ul.find_elements_by_tag_name("li")
 browser.execute_script("arguments[0].scrollIntoView(true);", dropdown)
 browser.find_element_by_class_name("widget-close-button").click()
-print("Composed of " + len(li) + " weeks")
+print("Composed of " + str(len(li)) + " weeks")
 for j in range(0, len(li)):
     dropdown.click()
     li[j].find_element_by_tag_name("a").click()
@@ -63,7 +64,11 @@ for j in range(0, len(li)):
     matches_click = matches_click.find_elements_by_tag_name("a")
     #browser.find_element_by_xpath("//*[@id='pjax-container-main']/div/div[2]/div/div/div/div[1]/div[3]/div[3]/div/div[2]/div/div/button").click()
     for i in range(0, len(matches_click)):
-        #j+1 because the website adds a new div for each click on the week dropdown and never delete the old one
+        matchStatus = str(matches_click[i].find_element_by_css_selector("div.cell__section.status").text).replace("\n", " ")
+        #if match is not over (delayed, not yet played and so on)
+        if "FIN" not in matchStatus:
+            continue
+
         matches_click[i].click()
         try:
             element = WebDriverWait(browser, 10).until(
