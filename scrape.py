@@ -1,13 +1,11 @@
 import json
 import os
 import time
-import datetime
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
 
 
 def wait_for_ajax(driver):
@@ -21,7 +19,7 @@ def wait_for_ajax(driver):
 months = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"]
 months_num = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
 
-f = open("test.txt", "w+")
+f = open("16-17.txt", "w+")
 webdriverPath = "./chromedriver"
 if os.name == 'nt':
     webdriverPath += ".exe"
@@ -51,6 +49,7 @@ li = ul.find_elements_by_tag_name("li")
 browser.execute_script("arguments[0].scrollIntoView(true);", dropdown)
 browser.find_element_by_class_name("widget-close-button").click()
 print("Composed of " + str(len(li)) + " weeks")
+#loop through the weeks of the season
 for j in range(0, len(li)):
     dropdown.click()
     li[j].find_element_by_tag_name("a").click()
@@ -62,7 +61,7 @@ for j in range(0, len(li)):
             matches_click = m
             break
     matches_click = matches_click.find_elements_by_tag_name("a")
-    #browser.find_element_by_xpath("//*[@id='pjax-container-main']/div/div[2]/div/div/div/div[1]/div[3]/div[3]/div/div[2]/div/div/button").click()
+    #loop through the matches of that week
     for i in range(0, len(matches_click)):
         matchStatus = str(matches_click[i].find_element_by_css_selector("div.cell__section.status").text).replace("\n", " ")
         #if match is not over (delayed, not yet played and so on)
@@ -118,10 +117,10 @@ for j in range(0, len(li)):
 
         #scroll back to top of window
         browser.execute_script("arguments[0].scrollIntoView(true);", browser.find_element_by_css_selector("a.h-interactive.js-event-link"))
-        # click statistics
+        # click statistics tab
         browser.find_element_by_xpath("//*[@id='pjax-container-main']/div/div[2]/div/div/div/div[1]/div[3]/div[3]/div/div[2]/div/div/div[1]/div[3]/ul/li[2]").click()
         wait_for_ajax(browser)
-        # get stats
+        # get statistics
         stats = browser.find_element_by_id("statistics-period-ALL").find_elements_by_class_name("stat-group-event")
         for s in stats:
             browser.execute_script("arguments[0].scrollIntoView(true);", s)
