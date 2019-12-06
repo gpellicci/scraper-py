@@ -1,6 +1,8 @@
 import json
 import os
 import time
+import unicodedata
+import numpy
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -15,6 +17,7 @@ def wait_for_ajax(driver):
         wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete')
     except Exception as e:
         pass
+
 
 months = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"]
 months_num = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
@@ -40,16 +43,23 @@ dropdown.click()
 li[3].find_element_by_tag_name("a").click()
 print("Clicked on season " + dropdown.text)
 
-# set week 1
+#select per-turn view
+wait_for_ajax(browser)
+radioButton = browser.find_element_by_class_name("js-tournament-page-events-select-round")
+browser.execute_script("arguments[0].scrollIntoView(true);", radioButton)
+radioButton.click()
+
+#select turn 1
 wait_for_ajax(browser)
 dropdown = browser.find_elements_by_css_selector("div.dropdown.dropdown-select")
-dropdown = dropdown[1]
+dropdown = dropdown[2]
 ul = dropdown.find_element_by_tag_name("ul")
 li = ul.find_elements_by_tag_name("li")
 browser.execute_script("arguments[0].scrollIntoView(true);", dropdown)
 browser.find_element_by_class_name("widget-close-button").click()
 print("Composed of " + str(len(li)) + " weeks")
-#loop through the weeks of the season
+
+#loop through the turns of the season
 for j in range(0, len(li)):
     dropdown.click()
     li[j].find_element_by_tag_name("a").click()
@@ -78,7 +88,11 @@ for j in range(0, len(li)):
         wait_for_ajax(browser)
         # get team names
         teams = str(browser.find_element_by_css_selector("a.h-interactive.js-event-link").text).split(" - ")
-        data = {}
+        data = {
+            "event" : [],
+            "eventHome" : [],
+            "eventAway" : []
+        }
         data['homeTeam'] = teams[0]
         data['awayTeam'] = teams[1]
         # get match date
@@ -95,14 +109,15 @@ for j in range(0, len(li)):
             browser.execute_script("arguments[0].scrollIntoView(true);", events[i])
             divClass = event.get_attribute("class")
             txt = str(event.text).replace('\n', ' ').replace(" +", "+")
+
             if len(txt) == 0:
                 pass
             elif "cell--right" in divClass:
-                data['eventAway'+str(i)] = txt
+                data['eventAway'].append(txt)
             elif "cell--center" in divClass:
-                data['event'+str(i)] = txt
+                data['event'].append(txt)
             else:
-                data['eventHome'+str(i)] = txt
+                data['eventHome'].append(txt)
         #get match info like stadium and location
         matchInfo = browser.find_element_by_class_name("js-event-page-info-container")
         browser.execute_script("arguments[0].scrollIntoView(true);", matchInfo)
@@ -145,3 +160,8 @@ for j in range(0, len(li)):
 f.close()
 print("------ %s seconds ------" % (time.time() - start_time))
 # browser.close()
+
+
+
+
+exit(0)
