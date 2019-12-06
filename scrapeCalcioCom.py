@@ -78,9 +78,10 @@ for i in range(2, 3):#len(seasons)
 
     # loop through the teams of the season
     for j in range(0, len(teams)):
-        print("team\t" + str(j))
+        print("team\t" + str(j) + "\t" + )
         team = {}
-        teams = browser.find_elements_by_class_name("data")[2].find_elements_by_tag_name('tr')
+        teams = browser.find_elements_by_class_name("data")[2]
+        teams = teams.find_elements_by_tag_name('tr')
         #click on "info"
         teams[j].find_elements_by_tag_name('td')[3].find_element_by_tag_name('a').click()
         wait_for_ajax(browser)
@@ -123,10 +124,13 @@ for i in range(2, 3):#len(seasons)
             player = {}
             #print('-----------'+row.text)
             txt  = str(row.text)
-            if(txt == "Portiere" or txt == "Difesa" or txt == "Centrocampo" or txt == "Attacco" or txt == "Allenatore"):
+            if(txt == "Portiere" or txt == "Difesa" or txt == "Centrocampo" or txt == "Attacco" or txt == "Allenatore" or txt == "Allenatore in seconda"):
                 role = txt.lower()
             else:
                 tds = row.find_elements_by_tag_name("td")
+                if(role == "allenatore in seconda"):
+                    role = "allenatore"
+
                 player['role'] = role
                 if(role != "allenatore"):
                     player['number'] = tds[1].text
