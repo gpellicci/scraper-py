@@ -1,0 +1,404 @@
+{
+   "add": {
+      "message": "Lisää"
+   },
+   "add_filters_msg": {
+      "message": "Lisää suodatin\\suodattimia?"
+   },
+   "block_element": {
+      "message": "Estä elementti"
+   },
+   "cancel": {
+      "message": "Peruuta"
+   },
+   "click_element_to_block_it": {
+      "message": "Klikkaa elementtiä sivustolla estääksesi se."
+   },
+   "common_copyright": {
+      "message": "Copyright © $year$ Kaikki oikeudet pidätetään Adblock Plus® on rekisteröity \u003Ca0>eyeo GmbH\u003C/a0> tavaramerkki.",
+      "placeholders": {
+         "year": {
+            "content": "$1",
+            "example": "1984"
+         }
+      }
+   },
+   "common_feature_anti_adblock_title": {
+      "message": "Piilota Adblock varoitussanomat"
+   },
+   "common_feature_malware_title": {
+      "message": "Estä haittaohjelmat"
+   },
+   "common_feature_privacy_title": {
+      "message": "Estä muu seuranta"
+   },
+   "common_feature_social_title": {
+      "message": "Estä sosiaalisen median kuvakkeet"
+   },
+   "common_notification_hide": {
+      "message": "Sulje ilmoitus"
+   },
+   "continue": {
+      "message": "Jatka"
+   },
+   "description": {
+      "message": "Yli 500 miljoonalla latauksella Adblock Plus on yksi maailman tunnetuimmista mainoksenesto-ohjelmista."
+   },
+   "easy_create_filter": {
+      "message": "Estä elementti"
+   },
+   "filter_elemhideemulation_nodomain": {
+      "message": "Aktiivista verkkotunnusta ei ole määritetty laajennetun elementin piilotussuodattimelle"
+   },
+   "filter_invalid_csp": {
+      "message": "Virheellinen sisältöturvapolitiikka"
+   },
+   "filter_invalid_domain": {
+      "message": "Väärä (tai tyhjä) verkkotunnus"
+   },
+   "filter_invalid_regexp": {
+      "message": "Virheellinen normaali-ilmaus"
+   },
+   "filter_unknown_option": {
+      "message": "Tuntematon suodatusvaihtoehto"
+   },
+   "filters_subscription_lastDownload_connectionError": {
+      "message": "Epäonnistui, latausvirhe"
+   },
+   "firstRun_browser_store_android": {
+      "message": "Android sovellus Google Play:ssa"
+   },
+   "firstRun_browser_store_ios": {
+      "message": "Saatavilla iTunes sovelluskaupasta"
+   },
+   "firstRun_browser_title": {
+      "message": "Adblock Browser sovellus"
+   },
+   "firstRun_control_title": {
+      "message": "Sinä päätät"
+   },
+   "firstRun_fair_title": {
+      "message": "Reilu käyttö"
+   },
+   "firstRun_subtitle": {
+      "message": "Otit juuri selaimesi hallinnan."
+   },
+   "firstRun_title": {
+      "message": "Asennus onnistui!"
+   },
+   "firstRun_warning_dataCorrupted_step1": {
+      "message": "Avaa selaimesi laajennukset -välilehti."
+   },
+   "firstRun_warning_dataCorrupted_step2": {
+      "message": "Paikanna Adblock Plus ja poista se."
+   },
+   "firstRun_warning_dataCorrupted_step3": {
+      "message": "Uudelleenasenna Adblock Plus osoitteesta \u003Ca>adblockplus.org\u003C/a>."
+   },
+   "issueReporter_anonymousSubmission_label": {
+      "message": "Lähetä nimettömänä"
+   },
+   "issueReporter_anonymousSubmission_warning": {
+      "message": "Sinuun ei voida ottaa yhteyttä ja todennäköisesti priorisoimme raportin alemmas."
+   },
+   "issueReporter_commentPage_heading": {
+      "message": "Lisää kommentti"
+   },
+   "issueReporter_comment_description": {
+      "message": "Alla olevaan tekstikenttään voit syöttää kommentin (englanniksi) helpottaaksesi meitä ymmärtämään ongelman. Tämä vaihe on valinnainen mutta suositeltava, jos ongelma ei ole ilmiselvä. Voit myös käydä läpi raportin tiedot ennen sen lähettämistä."
+   },
+   "issueReporter_comment_label": {
+      "message": "Kommentti (valinnainen):"
+   },
+   "issueReporter_confirmationMessage": {
+      "message": "Raporttisi on tallennettu. Se löytyy tästä osoitteesta:"
+   },
+   "issueReporter_doneButton_label": {
+      "message": "Valmis"
+   },
+   "issueReporter_email_description": {
+      "message": "On suositeltavaa antaa toimiva sähköpostiosoite, jotta sinuun voidaan ottaa yhteyttä raporttiin liittyvissä kysymyksissä. Sen avulla voimme myös antaa tunnustusta panoksestasi ja priorisoida sitä korkeammalle."
+   },
+   "issueReporter_email_label": {
+      "message": "Sähköposti:"
+   },
+   "issueReporter_errorMessage": {
+      "message": "Raportin lähettäminen epäonnistui virhekoodilla \"?1?\". Varmista, että olet yhteydessä Internetiin ja yritä uudelleen. Mikäli ongelma ei katoa, pyydä apua [link]Adblock Plus foorumilta[/link]."
+   },
+   "issueReporter_falseNegative_description": {
+      "message": "Valitse tämä vaihtoehto, jos mainos näkyy vaikka Adblock Plus on käytössä."
+   },
+   "issueReporter_falseNegative_label": {
+      "message": "Adblock Plus ei estä mainosta"
+   },
+   "issueReporter_falsePositive_description": {
+      "message": "Valitse tämä vaihtoehto, jos sivulta puuttuu olennaista sisältöä tai se näkyy väärin. Voit päätellä onko Adblock Plus syy ongelmaan ottamalla sen väliaikaisesti pois kaytöstä."
+   },
+   "issueReporter_falsePositive_label": {
+      "message": "Adblock Plus estää liikaa"
+   },
+   "issueReporter_knownIssueMessage": {
+      "message": "Raportoimasi ongelma on todennäköisesti jo tiedossa. Lisätietoa:"
+   },
+   "issueReporter_page_title": {
+      "message": "Ongelman raportointi"
+   },
+   "issueReporter_privacyPolicy": {
+      "message": "Yksityisyyskäytäntö"
+   },
+   "issueReporter_sendButton_label": {
+      "message": "Lähetä raportti"
+   },
+   "issueReporter_sendPage_heading": {
+      "message": "Lähettää..."
+   },
+   "issueReporter_sending": {
+      "message": "Odota, Adblock Plus lähettää raporttia."
+   },
+   "issueReporter_showData_label": {
+      "message": "Näytä raportin tiedot"
+   },
+   "issueReporter_typeSelector_description": {
+      "message": "Tämä ikkuna ohjaa sinut Adblock Plus -ongelmaraportin lähettämiseen tarvittavien vaiheiden läpi. Kerro ensin, millaisen ongelman olet kohdannut tällä sivulla:"
+   },
+   "issueReporter_typeSelector_heading": {
+      "message": "Valitse ongelman tyyppi"
+   },
+   "line": {
+      "message": "Rivi $number$: $message$",
+      "placeholders": {
+         "message": {
+            "content": "$2",
+            "example": "Some error on this line"
+         },
+         "number": {
+            "content": "$1",
+            "example": "42"
+         }
+      }
+   },
+   "loading": {
+      "message": "Ladataan..."
+   },
+   "name": {
+      "message": "Adblock Plus"
+   },
+   "name_devbuild": {
+      "message": "Adblock Plus kehittäjäversio"
+   },
+   "name_releasebuild": {
+      "description": "Extension name to be shown for release builds. Note: this cannot be longer than 45 characters.",
+      "message": "Adblock Plus - free ad blocker"
+   },
+   "notification_antiadblock_message": {
+      "message": "Tämän sivun tiedetään näyttäneen kohdennettuja viestejä Adblock Plussan käyttäjille. Haluatko, että Adblock Plus piilottaa kohdennetut viestit?"
+   },
+   "notification_antiadblock_title": {
+      "message": "Piilotetaanko kohdennetut viestit?"
+   },
+   "notification_configure": {
+      "message": "Määritä ilmoitusasetukset"
+   },
+   "notification_open_all": {
+      "message": "Avata kaikki linkit tästä ilmoituksesta"
+   },
+   "notification_without_buttons": {
+      "message": "Napsauttamalla ilmoitusta voit avata kaikki linkit siitä."
+   },
+   "options_acceptableAds_ads_label": {
+      "message": "Salli hyväksyttävät mainokset"
+   },
+   "options_acceptableAds_header": {
+      "message": "Hyväksytyt mainokset"
+   },
+   "options_close": {
+      "message": "sulje"
+   },
+   "options_control_remove_title": {
+      "message": "poista"
+   },
+   "options_customFilter_cancel": {
+      "message": "Peruuta"
+   },
+   "options_customFilters_widget_title": {
+      "message": "Oma suodatinluettelo"
+   },
+   "options_customize_header": {
+      "message": "Mukauttaminen"
+   },
+   "options_customize_showNotifications": {
+      "message": "Näytä hyödylliset ilmoitukset"
+   },
+   "options_email": {
+      "message": "Sähköposti:"
+   },
+   "options_english": {
+      "message": "englanti"
+   },
+   "options_filterList_column_name": {
+      "message": "Suodatinlistat"
+   },
+   "options_filterList_column_status": {
+      "message": "Tila"
+   },
+   "options_filterList_column_update": {
+      "message": "Viimeksi päivitetty"
+   },
+   "options_filterList_hours": {
+      "message": "tuntia sitten"
+   },
+   "options_filterList_lastDownload_checksumMismatch": {
+      "message": "Epäonnistui, tarkistussumma ei täsmää"
+   },
+   "options_filterList_lastDownload_connectionError": {
+      "message": "Epäonnistui, latausvirhe"
+   },
+   "options_filterList_lastDownload_inProgress": {
+      "message": "Päivitetään"
+   },
+   "options_filterList_lastDownload_invalidURL": {
+      "message": "Epäonnistui, kelvoton osoite"
+   },
+   "options_filterList_minutes": {
+      "message": "minuuttia sitten"
+   },
+   "options_filterList_now": {
+      "message": "Juuri nyt"
+   },
+   "options_filterList_source": {
+      "message": "lähde"
+   },
+   "options_filterList_title": {
+      "message": "Suodatinlistat"
+   },
+   "options_filterList_update": {
+      "message": "päivitä kaikki suodatinlistat"
+   },
+   "options_filterList_updateNow": {
+      "message": "päivitä nyt"
+   },
+   "options_filterList_website": {
+      "message": "sivusto"
+   },
+   "options_footer_about": {
+      "message": "Tietoa Adblock Plus"
+   },
+   "options_footer_contribute": {
+      "message": "Avusta"
+   },
+   "options_language_add": {
+      "message": "lisää kieli"
+   },
+   "options_language_change": {
+      "message": "muuta"
+   },
+   "options_language_header": {
+      "message": "Kieli"
+   },
+   "options_learn_more": {
+      "message": "Lue lisää"
+   },
+   "options_more_filters_header": {
+      "message": "Lisää suodattimia"
+   },
+   "options_new_label": {
+      "message": "Uusi"
+   },
+   "options_page_document_title": {
+      "message": "Asetukset"
+   },
+   "options_page_title": {
+      "message": "Asetukset"
+   },
+   "options_privacy_header": {
+      "message": "Yksityisyys & tietoturva"
+   },
+   "options_refresh": {
+      "message": "Virkistä"
+   },
+   "options_short": {
+      "message": "Asetukset"
+   },
+   "options_support_title": {
+      "message": "Tuki"
+   },
+   "options_tab_advanced": {
+      "message": "Edistynyt"
+   },
+   "options_tab_general": {
+      "message": "Yleiset"
+   },
+   "options_tab_help": {
+      "message": "Ohjeet"
+   },
+   "options_tab_whitelist": {
+      "message": "Sallitut sivustot"
+   },
+   "options_tracking_warning_acknowledgment": {
+      "message": "OK, asia selvä"
+   },
+   "options_whitelist_add": {
+      "message": "Lisää sivusto"
+   },
+   "overlay_notification_button_no": {
+      "message": "Ei"
+   },
+   "overlay_notification_button_yes": {
+      "message": "Kyllä"
+   },
+   "overlay_notification_closing_button_hide": {
+      "message": "Sulje"
+   },
+   "overlay_notification_closing_button_optout": {
+      "message": "Lopeta ilmoitusten näyttäminen"
+   },
+   "promote_abp_module": {
+      "message": "Kiinnostunut Adblock Plus mobiiliversiosta?"
+   },
+   "refresh_to_take_effect": {
+      "message": "Klikkaa \u003Cstrong>Virkistä\u003C/strong> jotta muutokset tulevat voimaan."
+   },
+   "sendReport": {
+      "message": "Ilmoita ongelmasta"
+   },
+   "stats_header": {
+      "message": "Estettyjen kohteiden määrä"
+   },
+   "stats_label_page": {
+      "message": "\u003Cstrong>$number$\u003C/strong> tällä sivulla",
+      "placeholders": {
+         "number": {
+            "content": "$1"
+         }
+      }
+   },
+   "stats_label_total": {
+      "message": "\u003Cstrong>$number$\u003C/strong> yhteensä",
+      "placeholders": {
+         "number": {
+            "content": "$1"
+         }
+      }
+   },
+   "status_header": {
+      "message": "Estä mainoksia:"
+   },
+   "unexpected_filter_list_header": {
+      "message": "Suodatinlistan otsikot eivät ole sallittuja tässä"
+   },
+   "updates_heading": {
+      "message": "Adblock Plus on päivitetty!"
+   },
+   "updates_optionsPageNews": {
+      "message": "Upouusi asetussivu - uudistettu yksityisyys- ja tietoturva-asetukset - joten on helpompaa \u003Ca>mukauttaa Adblock Plus juuri niin kuin haluat\u003C/a>."
+   },
+   "updates_phone": {
+      "message": "Mutta odota! Entä puhelimesi?"
+   },
+   "updates_status": {
+      "message": "Päivitys suoritettu"
+   },
+   "updates_subheading": {
+      "message": "Mitä uutta?"
+   }
+}

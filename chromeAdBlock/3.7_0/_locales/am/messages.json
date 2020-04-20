@@ -1,0 +1,93 @@
+{
+   "add": {
+      "message": "ጨምር"
+   },
+   "add_filters_msg": {
+      "message": "ማጣሪያ(ዎች) ጨምር?"
+   },
+   "block_element": {
+      "message": "ይሄንን አካል ከልክል"
+   },
+   "cancel": {
+      "message": "ይቅር"
+   },
+   "continue": {
+      "message": "ቀጥል"
+   },
+   "description": {
+      "description": "Note: this cannot be longer than 132 characters",
+      "message": "Download Adblock Plus, one of the world's most popular ad blockers."
+   },
+   "easy_create_filter": {
+      "message": "ይህን አካል ይከልክሉ"
+   },
+   "line": {
+      "message": "መስመር $number$: $message$",
+      "placeholders": {
+         "message": {
+            "content": "$2",
+            "example": "Some error on this line"
+         },
+         "number": {
+            "content": "$1",
+            "example": "42"
+         }
+      }
+   },
+   "name": {
+      "message": "Adblock Plus"
+   },
+   "name_devbuild": {
+      "message": "አድብሎክ ፕላስ በስሪት ላይ ያለ"
+   },
+   "name_releasebuild": {
+      "description": "Extension name to be shown for release builds. Note: this cannot be longer than 45 characters.",
+      "message": "Adblock Plus - free ad blocker"
+   },
+   "notification_configure": {
+      "message": "የማስታወሻ ምርጫዎትን ይለውጡ"
+   },
+   "notification_open_all": {
+      "message": "በዚህ ማስታወሻ ውስጥ ያሉ አገናኞች ሁሉ ይክፈቱ"
+   },
+   "notification_without_buttons": {
+      "message": "በውስጡ ያሉ አገናኞች ሁሉ ለመክፈት ማስታወሻውን ይጫኑት።"
+   },
+   "options_customFilter_cancel": {
+      "message": "ይቅር"
+   },
+   "options_filterList_column_name": {
+      "message": "የማጣሪያ ዝርዝር"
+   },
+   "options_filterList_title": {
+      "message": "የማጣሪያ ዝርዝር"
+   },
+   "options_filterList_updateNow": {
+      "message": "ማሻሻያ አሁን አርግ"
+   },
+   "options_short": {
+      "message": "ምርጫዎች"
+   },
+   "options_tab_general": {
+      "message": "አጠቃላይ"
+   },
+   "stats_label_page": {
+      "message": "\u003Cstrong>$number$\u003C/strong> በዚህ ገጽ ላይ",
+      "placeholders": {
+         "number": {
+            "content": "$1"
+         }
+      }
+   },
+   "stats_label_total": {
+      "message": "\u003Cstrong>$number$\u003C/strong> ባጠቃላይ",
+      "placeholders": {
+         "number": {
+            "content": "$1"
+         }
+      }
+   },
+   "unexpected_filter_list_header": {
+      "message": "የማጣሪያ ዝርዝር ራስጌ እዚህ ጋር አይፈቀድም"
+   }
+}

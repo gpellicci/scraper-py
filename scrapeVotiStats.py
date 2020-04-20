@@ -1,6 +1,7 @@
 import json
 import os
 import time
+import unidecode
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -16,21 +17,26 @@ def wait_for_ajax(driver):
     except Exception as e:
         pass
 
-
+files = ["ita-serie-a", "bundesliga", "eng-premier-league", "fra-ligue-1", "esp-primera-division"]
+links = ["https://www.sofascore.com/it/torneo/calcio/italy/serie-a/23", "https://www.sofascore.com/it/torneo/calcio/germany/bundesliga/35", "https://www.sofascore.com/it/torneo/calcio/england/premier-league/17", "https://www.sofascore.com/it/torneo/calcio/france/ligue-1/34", "https://www.sofascore.com/it/torneo/calcio/spain/laliga/8"]
 months = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"]
 months_num = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
 STARTING_YEAR = 15  #2015
 ACTUAL_YEAR = 19    #2019
 
-with open("championship.txt") as file:
-    json_championship = json.load(file)
-f = open("championship_filled.txt", "w+")
+
+linkIndex = 3
+url = links[linkIndex]          #pick links[i] to choose the season
+filename = files[linkIndex]     #json filename
+
+# with open("data/" + filename + ".txt") as file:
+#     json_championship = json.load(file)
+# f = open("data/" + filename + "_filled.txt", "w+")
 webdriverPath = "./chromedriver"
 if os.name == 'nt':
     webdriverPath += ".exe"
 browser = webdriver.Chrome(webdriverPath)
 browser.maximize_window()
-url = "https://www.sofascore.com/it/torneo/calcio/italy/serie-a/23"
 start_time = time.time()
 browser.get(url)
 
@@ -43,12 +49,12 @@ ul = browser.find_element_by_xpath(
 li = ul.find_elements_by_tag_name("li")
 dropdown.click()
 
-####
+#loop through the seasons
 li_text = []
 for l in li:
     li_text.append(l.find_element_by_tag_name("a").text)
 index = li_text.index(str(STARTING_YEAR) + "/" + str(STARTING_YEAR + 1))
-for p in range(0, index):
+for p in range(0, 1):#index):
     k = index - p       #4-0 = 4  ----> 4-3 = 1
     print("season " + li_text[k])
 
@@ -83,12 +89,16 @@ for p in range(0, index):
         "round" : []
     }
     #loop through the rounds of the season
-    for i in range(0, len(li)):
+    for i in range(0, 12):#len(li)):
+        f = open("data/" + filename + "_filled.txt", "r")
+        json_championship = json.load(f)
+        f.close()
         round = {
             "match" : []
         }
         dropdown.click()
-        li[i].find_element_by_tag_name("a").click()
+        browser.execute_script("arguments[0].scrollIntoView(true);", li[i])
+        li[i+1].find_element_by_tag_name("a").click()
         # loop through the matches to scrape data
         wait_for_ajax(browser)
         matches = browser.find_elements_by_class_name("js-event-list-tournament-events")
@@ -97,7 +107,9 @@ for p in range(0, index):
                 matches_click = m
                 break
         matches_click = matches_click.find_elements_by_tag_name("a")
+
         #loop through the matches of that week
+        match_count = 0
         for j in range(0, len(matches_click)):
             matchStatus = str(matches_click[j].find_element_by_css_selector("div.cell__section.status").text).replace("\n", " ")
             #if match is not over (delayed, not yet played and so on)
@@ -105,6 +117,15 @@ for p in range(0, index):
                 continue
 
             matches_click[j].click()
+            homeTeamChecked = matches_click[j].find_elements_by_class_name("event-team")[0].text
+            match_array = json_championship["season"][p]["round"][i]["match"]
+            match_index = -1
+            for index_match, m in enumerate(match_array):
+                if(homeTeamChecked in m["homeTeam"]):
+                    match_index = index_match
+                    break
+            if(match_index == -1):
+                continue
             try:
                 element = WebDriverWait(browser, 10).until(
                     EC.presence_of_element_located((By.CLASS_NAME, "js-details-widget-container"))
@@ -144,9 +165,9 @@ for p in range(0, index):
                         }
                         matchInfo['statisticAway'].append(stat)
             #add the match statistics to the json
-            print("season "+str(p)+" round "+str(i)+" match "+str(j))
-            json_championship["season"][p]["round"][i]["match"][j]["statisticHome"] = matchInfo["statisticHome"]
-            json_championship["season"][p]["round"][i]["match"][j]["statisticAway"] = matchInfo["statisticAway"]
+            print("season "+str(p)+" round "+str(i)+" match "+str(match_count))
+            json_championship["season"][p]["round"][i]["match"][index_match]["statisticHome"] = matchInfo["statisticHome"]
+            json_championship["season"][p]["round"][i]["match"][index_match]["statisticAway"] = matchInfo["statisticAway"]
 
             #scroll back to top of window
             browser.execute_script("arguments[0].scrollIntoView(true);", browser.find_element_by_css_selector("a.h-interactive.js-event-link"))
@@ -165,51 +186,50 @@ for p in range(0, index):
             browser.switch_to.window(newWindow)
             #you are now on the extended match info page
             #get players votes
-
+            #click statistics
             browser.find_element_by_xpath("//*[@id='pjax-container-main']/div/div[2]/div/div[2]/ul/li[2]").click()
             wait_for_ajax(browser)
+            #click on home team tab
+            #home=visible, away=hidden
+            # teamButtons = browser.find_elements_by_class_name("item-row item-row--fancy")[0].find_elements_by_tag_name("span")
+            # teamButtons[1].click()
             rows = browser.find_element_by_xpath("//*[@id='player-statistics-tab-summary']/table/tbody").find_elements_by_tag_name("tr")
-            homeTeam = {
-                "player" : []
-            }
-            awayTeam = {
-                "player": []
-            }
             for row in rows:
+                if("hidden" in row.get_attribute("class")):
+                    continue
                 tds = row.find_elements_by_tag_name("td")
-                vote = {}
-                vote['player'] = tds[1].text
-                playerName = vote['player'] = tds[1].text
-                vote['vote'] = tds[11].text
+                # vote = {}
+                # vote['player'] = tds[1].text
+                playerName = tds[1].text
+                playerNumber =  tds[0].find_element_by_tag_name("span").get_attribute("textContent")
+                # vote['vote'] = tds[11].text
                 value = tds[11].text
 
-                # add the match statistics to the json
-                json_championship["season"][p]["round"][i]["match"][j]["statisticHome"] = matchInfo["statisticHome"]
-                json_championship["season"][p]["round"][i]["match"][j]["statisticAway"] = matchInfo["statisticAway"]
-
                 if("home" in row.get_attribute("class")):
-                    homeTeam["player"].append(vote)
-                    tmp = json_championship["season"][p]["round"][i]["match"][j]["homeRoster"]["player"]
+                    # homeTeam["player"].append(vote)
+                    tmp = json_championship["season"][p]["round"][i]["match"][index_match]["homeLineup"]["player"]
                     playerIndex = -1
                     #print("HOME checking for "+playerName)
                     for count, t in enumerate(tmp):
-                        if (t["name"] == playerName):
+                        if (t["number"] == playerNumber):
                             playerIndex = count
                             break
-                    json_championship["season"][p]["round"][i]["match"][j]["homeRoster"]["player"][playerIndex]["vote"] = value
+                    if(playerIndex != -1):
+                        json_championship["season"][p]["round"][i]["match"][index_match]["homeLineup"]["player"][playerIndex]["vote"] = value
                 else:
-                    awayTeam["player"].append(vote)
-                    tmp = json_championship["season"][p]["round"][i]["match"][j]["awayRoster"]["player"]
+                    # awayTeam["player"].append(vote)
+                    tmp = json_championship["season"][p]["round"][i]["match"][index_match]["awayLineup"]["player"]
                     playerIndex = -1
                     #print("AWAY checking for "+playerName)
                     for count, t in enumerate(tmp):
-                        if (t["name"] == playerName):
+                        if (t["number"] == playerNumber):
                             playerIndex = count
                             break
-                    json_championship["season"][p]["round"][i]["match"][j]["awayRoster"]["player"][playerIndex]["vote"] = value
+                    if(playerIndex != -1):
+                        json_championship["season"][p]["round"][i]["match"][index_match]["awayLineup"]["player"][playerIndex]["vote"] = value
 
-            matchInfo["homeTeamVote"] = homeTeam
-            matchInfo["awayTeamVote"] = awayTeam
+            # matchInfo["homeTeamVote"] = homeTeam
+            # matchInfo["awayTeamVote"] = awayTeam
 
             #players votes obtained
             #done with the extended match info page -> close and switch back to main window
@@ -218,19 +238,20 @@ for p in range(0, index):
 
             #click X and close stats panel
             browser.find_element_by_class_name("widget-close-button").click()
-        # round["match"].append(matchInfo)
-        # season["round"].append(round)
+            match_count = match_count + 1
 
-#save json to file
-#json_data = json.dumps(season)
-json_data = json.dumps(json_championship)
-print(json_data)
-f.write(json_data + '\n')
-f.close()
+
+        json_data = json.dumps(json_championship)
+        f = open("data/" + filename + "_filled.txt", "w+")
+        f.write(json_data)
+        f.close()
+
 print("------ %s seconds ------" % (time.time() - start_time))
-# browser.close()
-
-
-
-
 exit(0)
+# #save json to file
+# json_data = json.dumps(json_championship)
+# print(json_data)
+# f.write(json_data + '\n')
+# f.close()
+# print("------ %s seconds ------" % (time.time() - start_time))
+# exit(0)
