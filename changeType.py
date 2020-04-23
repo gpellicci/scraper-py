@@ -36,20 +36,34 @@ for i in range(0, len(json_championship["season"])):
                 player = match["homeLineup"]["player"][y]
                 if "number" in player and player["number"] != '':
                     player["number"] = int(player["number"])
-                if "leaveTime" in player and " " not in player["leaveTime"]:
-                    player["leaveTime"] = int(player["leaveTime"])
-                if "enterTime" in player and " " not in player["enterTime"]:
-                    player["enterTime"] = int(player["enterTime"])
+                if "enterTime" in player:
+                    if isinstance(player["enterTime"], str):
+                        t = player["enterTime"]
+                        time = t.split(" ")
+                        player["enterTime"] = int(time[0])
+                        player["leaveTime"] = int(time[1])
+                else:
+                    if "leaveTime" in player and " " not in player["leaveTime"]:
+                        player["leaveTime"] = int(player["leaveTime"])
+                    if "enterTime" in player and " " not in player["enterTime"]:
+                        player["enterTime"] = int(player["enterTime"])
 
             ##AWAY LINEUP
             for y in range(0, len(match["awayLineup"]["player"])):
                 player = match["awayLineup"]["player"][y]
                 if "number" in player and player["number"] != '':
                     player["number"] = int(player["number"])
-                if "leaveTime" in player and " " not in player["leaveTime"]:
-                    player["leaveTime"] = int(player["leaveTime"])
-                if "enterTime" in player and " " not in player["enterTime"]:
-                    player["enterTime"] = int(player["enterTime"])
+                if "enterTime" in player:
+                    if isinstance(player["enterTime"], str):
+                        t = player["enterTime"]
+                        time = t.split(" ")
+                        player["enterTime"] = int(time[0])
+                        player["leaveTime"] = int(time[1])
+                else:
+                    if "leaveTime" in player and " " not in player["leaveTime"]:
+                        player["leaveTime"] = int(player["leaveTime"])
+                    if "enterTime" in player and " " not in player["enterTime"]:
+                        player["enterTime"] = int(player["enterTime"])
 
 
 
@@ -207,4 +221,4 @@ f = open(toSave, "w+")
 json_data = json.dumps(json_championship)
 f.write(json_data)
 f.close()
-print("clown done")
+print("Post-processing completed")
