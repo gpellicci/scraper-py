@@ -3,7 +3,7 @@ import os
 import re
 import time
 
-filename = "esp.json"
+filename = "eng.json"
 toOpen = "data/toNormalize/"+filename
 ranking_file = "data/toNormalize/done/RANKING_"+filename
 season_file = "data/toNormalize/done/SEASON_"+filename
@@ -43,26 +43,48 @@ for i in range(0, len(json_championship["season"])):
 
     del json_championship["season"][i]["team"]
 
-    # Remove player number from match
-    for j in range(0, len(json_championship["season"][i]["round"])):
-        for k in range(0, len(json_championship["season"][i]["round"][j]["match"])):
-            match = json_championship["season"][i]["round"][j]["match"][k]
-            # Home lineup
-            for y in range(0, len(match["homeLineup"]["player"])):
-                del json_championship["season"][i]["round"][j]["match"][k]["homeLineup"]["player"][y]["number"]
-
-            # Away lineup
-            for y in range(0, len(match["awayLineup"]["player"])):
-                del json_championship["season"][i]["round"][j]["match"][k]["awayLineup"]["player"][y]["number"]
-
-
-
 
     season = json_championship["season"][i]
     season["league"] = json_championship["name"]
+    for j in range(0, len(season["round"])):
+        for k in range(0, len(season["round"][j]["match"])):
+            match = season["round"][j]["match"][k]
+            # Home lineup
+            for y in range(0, len(match["homeLineup"]["player"])):
+                player = match["homeLineup"]["player"][y]
+                if "enterTime" in season["round"][j]["match"][k]["homeLineup"]["player"][y]:
+                    if isinstance(season["round"][j]["match"][k]["homeLineup"]["player"][y]["enterTime"], str):
+                        t = season["round"][j]["match"][k]["homeLineup"]["player"][y]["enterTime"]
+                        time = t.split(" ")
+                        #print(time)
+                        season["round"][j]["match"][k]["homeLineup"]["player"][y]["enterTime"] = int(time[0])
+                        season["round"][j]["match"][k]["homeLineup"]["player"][y]["leaveTime"] = int(time[1])
+
+            # Away lineup
+            for y in range(0, len(match["awayLineup"]["player"])):
+                player = match["awayLineup"]["player"][y]
+                if "enterTime" in season["round"][j]["match"][k]["awayLineup"]["player"][y]:
+                    if isinstance(season["round"][j]["match"][k]["awayLineup"]["player"][y]["enterTime"], str):
+                        t = season["round"][j]["match"][k]["awayLineup"]["player"][y]["enterTime"]
+                        time = t.split(" ")
+                        season["round"][j]["match"][k]["awayLineup"]["player"][y]["enterTime"] = int(time[0])
+                        season["round"][j]["match"][k]["awayLineup"]["player"][y]["leaveTime"] = int(time[1])
+
+            if "statisticHome" in match:
+                for y in range(0, len(match["statisticHome"])):
+                    stat = match["statisticHome"][y]
+                    if "Prec. passaggi" in stat:
+                        season["round"][j]["match"][k]["statisticHome"][y]["PrecPassaggi"] = stat["Prec. passaggi"]
+                        del season["round"][j]["match"][k]["statisticHome"][y]["Prec. passaggi"]
+
+            if "statisticAway" in match:
+                for y in range(0, len(match["statisticAway"])):
+                    stat = match["statisticAway"][y]
+                    if "Prec. passaggi" in stat:
+                        season["round"][j]["match"][k]["statisticAway"][y]["PrecPassaggi"] = stat["Prec. passaggi"]
+                        del season["round"][j]["match"][k]["statisticAway"][y]["Prec. passaggi"]
+
     json_season.append(season)
-
-
 
 f = open(ranking_file, "w+")
 f.write(json.dumps(json_ranking))
