@@ -3,7 +3,7 @@ import os
 import re
 import time
 
-filename = "ger-bundesliga_filledV2.json"
+filename = "esp.json"
 toOpen = "data/toNormalize/"+filename
 ranking_file = "data/toNormalize/done/RANKING_"+filename
 season_file = "data/toNormalize/done/SEASON_"+filename
@@ -23,14 +23,14 @@ for i in range(0, len(json_championship["season"])):
     rank = {
         "league":json_championship["name"],
         "year":json_championship["season"][i]["year"],
-        "ranking":json_championship["season"][i]["ranking"]
+        "ranking":json_championship["season"][i]["ranking"]["team"]
     }
 
     json_ranking.append(rank)
     del json_championship["season"][i]["ranking"]
 
     # Team normalization
-    for j in range(0, 2):#len(json_championship["season"][i]["team"])):
+    for j in range(0, len(json_championship["season"][i]["team"])):
         tmp = json_championship["season"][i]["team"][j]
         player_array = {
             "league":json_championship["name"],
@@ -42,6 +42,21 @@ for i in range(0, len(json_championship["season"])):
         json_team.append(player_array)
 
     del json_championship["season"][i]["team"]
+
+    # Remove player number from match
+    for j in range(0, len(json_championship["season"][i]["round"])):
+        for k in range(0, len(json_championship["season"][i]["round"][j]["match"])):
+            match = json_championship["season"][i]["round"][j]["match"][k]
+            # Home lineup
+            for y in range(0, len(match["homeLineup"]["player"])):
+                del json_championship["season"][i]["round"][j]["match"][k]["homeLineup"]["player"][y]["number"]
+
+            # Away lineup
+            for y in range(0, len(match["awayLineup"]["player"])):
+                del json_championship["season"][i]["round"][j]["match"][k]["awayLineup"]["player"][y]["number"]
+
+
+
 
     season = json_championship["season"][i]
     season["league"] = json_championship["name"]
