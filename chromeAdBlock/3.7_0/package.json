@@ -12,7 +12,7 @@
       "drivers."
     ],
     "argparse": "^1.0.10",
-    "chromedriver": "2.36.0",
+    "chromedriver": "119.0.1",
     "dmg": "^0.1.0",
     "eslint": "^6.5.0",
     "eslint-config-eyeo": "^2.1.0",
